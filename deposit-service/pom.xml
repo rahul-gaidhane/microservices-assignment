@@ -11,7 +11,7 @@
 	<groupId>in.example</groupId>
 	<artifactId>deposit-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>deposit-service</name>
+	<name>credit-service</name>
 	<description>sample project for assignment</description>
 	<properties>
 		<java.version>11</java.version>

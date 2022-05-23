@@ -6,5 +6,5 @@
     * forex-service
     * fund-transfer
     * discovery-server
-    * deposit-service
+    * credit-service
     * debit-service
