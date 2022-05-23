@@ -22,10 +22,6 @@ public class RateServiceImpl implements RateService {
 		//creating key
 		String key = request.getSrcCur() + "_" + request.getDestCur();
 		
-		LOGGER.info("Key  : " + key);
-		
-		rates.forEach((k,v) -> LOGGER.info("Key V : " + k + ", " + v));
-		
 		ForexResponse response = new ForexResponse();
 		
 		if(rates.containsKey(key)) {

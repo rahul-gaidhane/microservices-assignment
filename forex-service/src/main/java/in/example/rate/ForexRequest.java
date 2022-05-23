@@ -31,4 +31,9 @@ public class ForexRequest {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
+
+	@Override
+	public String toString() {
+		return "ForexRequest [srcCur=" + srcCur + ", destCur=" + destCur + ", amount=" + amount + "]";
+	}
 }
