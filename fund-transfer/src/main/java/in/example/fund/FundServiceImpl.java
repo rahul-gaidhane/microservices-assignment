@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
@@ -15,6 +16,9 @@ public class FundServiceImpl implements FundService {
 	
 	@Autowired
 	private ForexClient forexClient;
+	
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
 	
 	@Override
 	public FundTranserResponse transfer(FundTransferRequest request) {
@@ -33,6 +37,8 @@ public class FundServiceImpl implements FundService {
 		}
 		
 		LOGGER.debug("Forex Response : {}", forexRes);
+		
+		kafkaTemplate.send("kafka1", "deposit " + forexRes.getAmount());
 		
 		return null;
 	}
