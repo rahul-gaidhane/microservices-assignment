@@ -38,7 +38,9 @@ public class FundServiceImpl implements FundService {
 		
 		LOGGER.debug("Forex Response : {}", forexRes);
 		
-		kafkaTemplate.send("kafka1", "deposit " + forexRes.getAmount());
+		kafkaTemplate.send("kafka-credit", "credit " + forexRes.getAmount());
+		
+		kafkaTemplate.send("kafka-debit", "debit " + forexRes.getAmount());
 		
 		return null;
 	}

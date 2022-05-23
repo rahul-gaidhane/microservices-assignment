@@ -10,8 +10,8 @@ public class DepositListener {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(DepositListener.class);
 	
-	@KafkaListener(topics = "kafka1", groupId = "archived")
-	public void consume(String message) {
+	@KafkaListener(topics = "kafka-credit", groupId = "archived")
+	public void handleCredit(String message) {
 		LOGGER.debug("Message Recieved by deposit service : {}", message);
 	}
 }
