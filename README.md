@@ -5,3 +5,4 @@
 * This sample project contains following components :
     * forex-service
     * fund-transfer
+    * discovery-server
