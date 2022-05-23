@@ -22,7 +22,7 @@ public class ForexClient {
 		
 		LOGGER.debug("Service to get forex amount : {}", forexReq);
 		
-		ForexResponse response = restTemplate.postForObject(new URI("http://localhost:8082/api/forex"), forexReq, ForexResponse.class);
+		ForexResponse response = restTemplate.postForObject(new URI("http://forex-service/api/forex"), forexReq, ForexResponse.class);
 		
 		return response;
 	}
