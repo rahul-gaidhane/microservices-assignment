@@ -7,3 +7,4 @@
     * fund-transfer
     * discovery-server
     * deposit-service
+    * debit-service
