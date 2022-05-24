@@ -24,6 +24,7 @@ public class FundServiceImpl implements FundService {
 	private KafkaTemplate<String, String> kafkaTemplate;
 	
 	@Override
+	@io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker(name = "fallbackService", fallbackMethod = "fallbackTransfer")
 	public FundTranserResponse transfer(FundTransferRequest request) throws JsonProcessingException {
 		LOGGER.debug("Service to transfer fund : {}", request);
 		
@@ -32,11 +33,12 @@ public class FundServiceImpl implements FundService {
 		
 		ForexRequest forexReq = new ForexRequest(srcCurr, destCurr, request.getAmount()); 
 		ForexResponse forexRes = null;
+		
 		try {
 			forexRes = forexClient.getForexAmount(forexReq);
 		} catch (RestClientException | URISyntaxException e) {
-			LOGGER.error("Error Occured while making api call to forex service");
-			//TODO: print stack trace
+			LOGGER.debug("Error Occured while getting Forex info");
+			//TODO: Print message
 		}
 		
 		ObjectMapper objMap = new ObjectMapper();
@@ -55,7 +57,11 @@ public class FundServiceImpl implements FundService {
 		
 		kafkaTemplate.send("kafka-credit", objMap.writeValueAsString(creditOper));
 		
-		return null;
+		return new FundTranserResponse(request.getAmount(), forexRes.getAmount(), "Fund Transfered Successfully");
+	}
+	
+	public FundTranserResponse fallbackTransfer(Exception ex) {
+		return new FundTranserResponse(0d, 0d, "Fund Transfer Failed");
 	}
 
 }

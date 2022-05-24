@@ -2,21 +2,32 @@ package in.example.fund;
 
 public class FundTranserResponse {
 	
-	private Double amount;
+	private Double debitedAmount;
+	
+	private Double creditedAmount;
 	
 	private String message;
-
-	public FundTranserResponse(Double amount, String message) {
-		this.amount = amount;
+	
+	public FundTranserResponse(Double debitedAmount, Double creditedAmount, String message) {
+		this.debitedAmount = debitedAmount;
+		this.creditedAmount = creditedAmount;
 		this.message = message;
 	}
 	
-	public Double getAmount() {
-		return amount;
+	public Double getDebitedAmount() {
+		return debitedAmount;
 	}
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
+	public void setDebitedAmount(Double debitedAmount) {
+		this.debitedAmount = debitedAmount;
+	}
+
+	public Double getCreditedAmount() {
+		return creditedAmount;
+	}
+
+	public void setCreditedAmount(Double creditedAmount) {
+		this.creditedAmount = creditedAmount;
 	}
 
 	public String getMessage() {
@@ -29,6 +40,7 @@ public class FundTranserResponse {
 
 	@Override
 	public String toString() {
-		return "FundTranserResponse [amount=" + amount + ", message=" + message + "]";
+		return "FundTranserResponse [debitedAmount=" + debitedAmount + ", creditedAmount=" + creditedAmount
+				+ ", message=" + message + "]";
 	}
 }
