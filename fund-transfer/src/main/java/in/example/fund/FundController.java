@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 @RestController
 @RequestMapping("/api/funds")
 public class FundController {
@@ -20,7 +22,7 @@ public class FundController {
 	private FundService fundService;
 	
 	@PutMapping("/transfer")
-	public ResponseEntity<FundTranserResponse> transfer(@RequestBody FundTransferRequest request) {
+	public ResponseEntity<FundTranserResponse> transfer(@RequestBody FundTransferRequest request) throws JsonProcessingException {
 		LOGGER.debug("Request to transfer fund : {}", request);
 		
 		FundTranserResponse response = fundService.transfer(request);

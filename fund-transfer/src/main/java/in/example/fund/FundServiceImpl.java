@@ -9,6 +9,9 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Service
 public class FundServiceImpl implements FundService {
 
@@ -21,7 +24,7 @@ public class FundServiceImpl implements FundService {
 	private KafkaTemplate<String, String> kafkaTemplate;
 	
 	@Override
-	public FundTranserResponse transfer(FundTransferRequest request) {
+	public FundTranserResponse transfer(FundTransferRequest request) throws JsonProcessingException {
 		LOGGER.debug("Service to transfer fund : {}", request);
 		
 		String srcCurr = "USD";
@@ -36,11 +39,21 @@ public class FundServiceImpl implements FundService {
 			//TODO: print stack trace
 		}
 		
+		ObjectMapper objMap = new ObjectMapper();
+		
 		LOGGER.debug("Forex Response : {}", forexRes);
 		
-		kafkaTemplate.send("kafka-credit", "credit " + forexRes.getAmount());
+		AccountOperation debitOper = new AccountOperation();
+		debitOper.setAccountNumber(request.getSrcAccount());
+		debitOper.setAmount(request.getAmount());
 		
-		kafkaTemplate.send("kafka-debit", "debit " + forexRes.getAmount());
+		kafkaTemplate.send("kafka-debit", objMap.writeValueAsString(debitOper));
+		
+		AccountOperation creditOper = new AccountOperation();
+		creditOper.setAccountNumber(request.getDestAccount());
+		creditOper.setAmount(forexRes.getAmount());
+		
+		kafkaTemplate.send("kafka-credit", objMap.writeValueAsString(creditOper));
 		
 		return null;
 	}
