@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>in.example</groupId>
-	<artifactId>deposit-service</artifactId>
+	<artifactId>credit-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>credit-service</name>
 	<description>sample project for assignment</description>
@@ -36,6 +36,19 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-mongodb</artifactId>
+		    <version>2.6.7</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.13.2.2</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
