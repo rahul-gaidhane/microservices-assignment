@@ -19,3 +19,9 @@
     * api-gateway
         * runs on port `8085`
         * `api-gateway` is used for communication with external consumers.
+
+### Apis
+
+| API | Request | Response |
+|:---:|:-------:|:--------:|
+| /api/funds/transfer | { "srcAccount" : "101", "destAccount" : "102", "amount" : 1}| { "creditedAmount" : \<double\>, "debitedAmount" : \<double\>, "message" : ""}|
