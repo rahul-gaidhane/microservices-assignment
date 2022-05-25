@@ -16,3 +16,6 @@
     * debit-service
         * runs on port `8084`
         * `fund-transfer` service communicates using Apache Kafka. `apache-debit` topic is used for communication
+    * api-gateway
+        * runs on port `8085`
+        * `api-gateway` is used for communication with external consumers.
